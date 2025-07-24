@@ -15,14 +15,14 @@ required this.windspeed,
 required this.sunrise,
 required this.sunset});
 
-Weather.fromjson(Map<String,dynamic> parsedjson){
-    cityname = parsedjson["name"];
-   description= parsedjson["weather"]["main"];
-    temperature = parsedjson["main"]["temp"] - 273.15;
-    humidity = parsedjson["main"]["humidity"];
-    windspeed = parsedjson["wind"]["speed"];
-    sunrise = parsedjson["sys"]["sunrise"];
-    sunset = parsedjson["sys"]["sunset"];
+Weather.fromjson(Map<String, dynamic> parsedjson) {
+  cityname = parsedjson["name"];
+  description = parsedjson["weather"][0]["main"];
+  temperature = (parsedjson["main"]["temp"] - 273.15).round();
+  humidity = parsedjson["main"]["humidity"];
+  windspeed = parsedjson["wind"]["speed"].round();
+  sunrise = parsedjson["sys"]["sunrise"];
+  sunset = parsedjson["sys"]["sunset"];
 }
 }
 

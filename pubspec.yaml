@@ -58,7 +58,11 @@ flutter:
 
   assets:
     - assets/weather_logo.png
-
+    - assets/cloudy.png   
+    - assets/drizzle.png   
+    - assets/rain.png   
+    - assets/thunderstorm.png   
+    - assets/mist.png   
 flutter_icons:
   android: true
   ios: true

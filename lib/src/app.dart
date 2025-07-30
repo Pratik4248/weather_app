@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' show get;
 import './weather_forecast.dart';
+import 'package:intl/intl.dart';
 
 class App extends StatefulWidget {
   final String cityName;
@@ -70,6 +71,13 @@ When you override initState() in your class (write your own version), Flutter wo
       return 'assets/cloudy.png'; // fallback
   }
 }
+
+ // Convert UNIX timestamp to 24-hour format time string
+  String formatTime(int timestamp) {
+    final date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    final formatter = DateFormat('HH:mm'); // 24-hour format
+    return formatter.format(date);
+  }
 
   
 
@@ -223,7 +231,7 @@ When you override initState() in your class (write your own version), Flutter wo
                   child: Column(
                     children: [
                        Text(
-                  "Windspeed - ${weather?.windspeed}m/s",
+                  "Windspeed - ${weather?.windspeed} m/s",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
@@ -251,7 +259,7 @@ When you override initState() in your class (write your own version), Flutter wo
                   child: Column(
                     children: [
                        Text(
-                  "Sunrise - ${weather?.sunrise}",
+                  "Sunrise - ${formatTime(weather!.sunrise)}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
@@ -280,7 +288,7 @@ When you override initState() in your class (write your own version), Flutter wo
                   child: Column(
                     children: [
                        Text(
-                  "Sunset - ${weather?.sunset}",
+                  "Sunset - ${formatTime(weather!.sunset)}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,

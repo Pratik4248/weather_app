@@ -78,7 +78,7 @@ When you override initState() in your class (write your own version), Flutter wo
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 186, 234, 243),
+        backgroundColor: Color.fromARGB(255, 201, 234, 234),
 
 /* weather == null --> You're checking if the variable weather has no data yet (probably because the API hasn’t returned anything yet).
    This means the app is still loading weather data.

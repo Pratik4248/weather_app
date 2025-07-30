@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:weather_app/splash_screen/splash_screen.dart';
-// import '../src/city.dart';
+
 
 void main() {
   runApp(

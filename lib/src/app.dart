@@ -87,6 +87,7 @@ When you override initState() in your class (write your own version), Flutter wo
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 201, 234, 234),
+    
 
 /* weather == null --> You're checking if the variable weather has no data yet (probably because the API hasn’t returned anything yet).
    This means the app is still loading weather data.
@@ -98,9 +99,30 @@ When you override initState() in your class (write your own version), Flutter wo
 
   : design() --> If weather != null (i.e., data is fetched successfully), show the result of the design() function.
     */
-        body: weather == null
+        body:  Stack(
+    children: [
+      // Weather-based background image
+      if (weather != null)
+        Positioned.fill(
+          child: Image.asset(
+            getBackgroundImage(weather!.description),
+            fit: BoxFit.cover,
+          ),
+        ),
+
+      // Optional dark overlay for readability
+      Positioned.fill(
+        child: Container(
+          color: const Color.fromARGB(77, 0, 0, 0),
+        ),
+      ),
+
+      // Foreground content
+      weather == null
           ? const Center(child: CircularProgressIndicator())
-          :  design(),
+          : SizedBox.expand(child: design()),
+    ],
+  ),
       ),
     );
   }
@@ -117,44 +139,40 @@ When you override initState() in your class (write your own version), Flutter wo
             width: 400,
             height: 250,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(getBackgroundImage(weather?.description?? 'Clouds')),
-                fit: BoxFit.cover,
-              ),
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
+              color: Colors.transparent,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(height: 40),
+                // Text(
+                //   "Current Weather",
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //     fontStyle: FontStyle.italic,
+                //     fontSize: 25,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 SizedBox(height: 20),
                 Text(
-                  "Weather",
+                  "📍 ${weather?.cityname}",
                   style: TextStyle(
                     color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "${weather?.cityname}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Text(
-                  ' ${weather?.temperature}°C',
+                  '  ${weather?.temperature}°C',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 80,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -163,143 +181,81 @@ When you override initState() in your class (write your own version), Flutter wo
             ),
           ),
         ),
-                SizedBox(height: 50),
+                SizedBox(height: 65),
 
-                //Conditon box
-                Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Text(
-                  "Condition - ${weather?.description}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-                ),
-                SizedBox(height: 20),
+              Padding(
+  padding: EdgeInsets.symmetric(horizontal: 20.0),
+  child: Container(
+            height: 320,
+    width: double.infinity,
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      // color: Colors.black,
+       gradient: LinearGradient(
+    colors: [const Color.fromARGB(93, 218, 228, 228), const Color.fromARGB(93, 218, 228, 228)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+      borderRadius: BorderRadius.circular(35),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+        Text(
+          "☁️  Condition - ${weather?.description}",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 15),
+        Text(
+          "💧  Humidity - ${weather?.humidity}%",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 15),
+        Text(
+          "༄  Windspeed - ${weather?.windspeed} m/s",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 15),
+        Text(
+          "☀️  Sunrise - ${formatTime(weather!.sunrise)} ",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 15),
+        Text(
+          "🌇  Sunset - ${formatTime(weather!.sunset)}",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
 
-                //Humidity box
-                Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Text(
-                  "Humidity - ${weather?.humidity}%",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-                ),
-
-
-                SizedBox(height: 20),
-
-                //Windspeed Box
-                Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Text(
-                  "Windspeed - ${weather?.windspeed} m/s",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-                ),
-
-
-                SizedBox(height: 20),
-
-                //Sunrise box
-                Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Text(
-                  "Sunrise - ${formatTime(weather!.sunrise)}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-                ),
-
-
-                SizedBox(height: 20),
-
-                //Sunset box
-
-                Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  width: 400,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Text(
-                  "Sunset - ${formatTime(weather!.sunset)}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-                ),
       ],
     ),
   );

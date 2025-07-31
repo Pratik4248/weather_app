@@ -1,16 +1,11 @@
-# weather_app
+🌦️ Weather App – Flutter Project
+A clean and responsive weather forecast mobile application developed using Flutter, which allows users to search for any city and view its current weather details like temperature, humidity, wind speed, sunrise, and sunset timings. The app fetches real-time weather data from the OpenWeatherMap API.
 
-A new Flutter project.
+🚀 How It Works
+On app launch, a splash screen appears for 2 seconds.
 
-## Getting Started
+User is redirected to the City Input screen where they can enter a city name.
 
-This project is a starting point for a Flutter application.
+Upon submission, the app navigates to the Weather Display screen.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app fetches live weather data using the OpenWeatherMap API and displays it with relevant format

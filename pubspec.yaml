@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   http: ^1.4.0
   intl: ^0.19.0
+  video_player: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
     - assets/rain.png   
     - assets/thunderstorm.png   
     - assets/mist.png   
+    - assets/clouds_video.mp4
 flutter_icons:
   android: true
   ios: true

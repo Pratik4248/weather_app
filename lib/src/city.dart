@@ -40,7 +40,7 @@ class Citystate extends State<City> {
     decoration: InputDecoration(
     icon: Icon(Icons.location_city),
     labelText: 'City ',
-    hintText: 'Enter Your city name', 
+    hintText: 'Enter Your City Name', 
   ),
   onSaved: (value) =>  city = value!.trim(),
     ),
